@@ -25,6 +25,7 @@ setup(
     entry_points={
         'console_scripts': [
             'train_agent = rl_nav.train_agent:main',
+            'demo_agent = rl_nav.demo_agent:main'
         ],
     },
 )
