@@ -60,15 +60,15 @@ def main(args=None):
             # Translate the AI's choice (0, 1, or 2) into actual wheel speeds
             linear_vel = 0.0
             angular_vel = 0.0
-            if action.item() == 0:   # Drive Straight (Much Faster!)
-                linear_vel = 0.45    # Was 0.25
+            if action.item() == 0:   # Drive Straight
+                linear_vel = 0.45    
                 angular_vel = 0.0
-            elif action.item() == 1: # Turn Left (Faster Arcs)
-                linear_vel = 0.15    # Was 0.10
-                angular_vel = 1.0    # Was 0.75
-            elif action.item() == 2: # Turn Right (Faster Arcs)
-                linear_vel = 0.15    # Was 0.10
-                angular_vel = -1.0   # Was -0.75
+            elif action.item() == 1: # Wide Left Arc (Forced to move forward!)
+                linear_vel = 0.35    
+                angular_vel = 0.35    
+            elif action.item() == 2: # Wide Right Arc (Forced to move forward!)
+                linear_vel = 0.35    
+                angular_vel = -0.35   # Was -0.75
                 
             # Send speeds to Gazebo, get the new state and reward
             next_state, reward, done = env.step(linear_vel, angular_vel)

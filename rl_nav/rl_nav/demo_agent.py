@@ -57,15 +57,15 @@ def main(args=None):
             # Translate choice to speeds
             linear_vel = 0.0
             angular_vel = 0.0
-            if action.item() == 0:   # Drive Straight (Much Faster!)
+            if action == 0:   # Drive Straight (Much Faster!)
                 linear_vel = 0.45    # Was 0.25
                 angular_vel = 0.0
-            elif action.item() == 1: # Turn Left (Faster Arcs)
-                linear_vel = 0.15    # Was 0.10
-                angular_vel = 1.0    # Was 0.75
-            elif action.item() == 2: # Turn Right (Faster Arcs)
-                linear_vel = 0.15    # Was 0.10
-                angular_vel = -1.0   # Was -0.75
+            elif action == 1: # Turn Left (Faster Arcs)
+                linear_vel = 0.35    # Was 0.10
+                angular_vel = 0.35    # Was 0.75
+            elif action == 2: # Turn Right (Faster Arcs)
+                linear_vel = 0.35    # Was 0.10
+                angular_vel = -0.35   # Was -0.75
                 
             # Send speeds to Gazebo
             next_state, reward, done = env.step(linear_vel, angular_vel)
@@ -73,11 +73,13 @@ def main(args=None):
             state = next_state
             
             if done:
+                print(f"🎯 Target Reached early at step {step}!")
                 break
                 
         print(f"Demo Run {episode + 1}/{num_demo_runs} | Steps Survived: {step} | Score: {total_reward:.2f}")
 
-    print("✅ Demo Complete!")
+    print(f"Demo Run {episode}/10 | Steps Survived: {step} | Score: {total_reward:.2f}")
+    env.step(0.0, 0.0)
     env.destroy_node()
     rclpy.shutdown()
 
